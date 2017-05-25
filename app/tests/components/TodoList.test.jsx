@@ -13,6 +13,7 @@ describe('TodoList Component', () => {
 		expect(TodoList).toExist();
 	});
 
+	// Rendering components with SCRY is currently not working
 	// it('should render one component for each todo item', () => {
 	// 	var todos = [
 	// 		{
