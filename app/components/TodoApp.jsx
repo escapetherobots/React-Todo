@@ -3,6 +3,8 @@ var React = require('react');
 var TodoList = require('TodoList');
 var TodoAdd = require('TodoAdd');
 var TodoSearch = require('TodoSearch');
+//node-module-----------------------
+var uuid = require('uuid');
 
 var TodoApp = React.createClass({
 
@@ -11,33 +13,41 @@ var TodoApp = React.createClass({
 			showCompleted: false,
 			searchText: '',
 			todos: [
-				{id: 1, text: 'Walk the dog'},
-				{id: 2, text: 'finish portfolio'},
-				{id: 3, text: 'eat ice cream'},
-				{id: 4, text: 'workout'},
-				{id: 5, text: 'Paint the house'},
+				{id: uuid(), text: 'Walk the dog'},
+				{id: uuid(), text: 'finish portfolio'},
+				{id: uuid(), text: 'eat ice cream'},
+				{id: uuid(), text: 'workout'},
+				{id: uuid(), text: 'Paint the house'},
 			]
 		}
 	},
 
-	handleAddTodo(todo) {
-		console.log(this.state.todos.length + 1);
-		console.log(todo);
+	handleAddTodoZTest(todo) {
+		// console.log(this.state.todos.length + 1);
+		// console.log(todo);
 
-		var updatedTodos = this.state.todos.push({
-			id: this.state.todos.length + 1,
-			text: todo
-		});
+		// var updatedTodos = this.state.todos.push({
+		// 	id: this.state.todos.length + 1,
+		// 	text: todo
+		// });
 
-		this.setState({
-			updatedTodos
-		});
-
-		console.log(this.state);
 		// this.setState({
+		// 	updatedTodos
+		// });
 
-		// })
+		// console.log(this.state);
+	},
 
+	handleAddTodo(todo){
+		this.setState({
+			todos: [
+				...this.state.todos,
+				{
+					id: uuid(),
+					text: todo
+				}
+			]
+		})
 	},
 
 	handleSearch(showCompleted, searchText){
