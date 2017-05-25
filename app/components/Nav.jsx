@@ -11,8 +11,8 @@ var Nav = React.createClass({
 				<nav className="top-bar nav-background" data-responsive-toggle="example-menu" data-hide-for="medium">
 					<div className="top-bar-left">
 						<ul className="menu" data-hide-for="medium">
-							<li className="menu-text">CRUX BOILERPLATE</li>
-							<li><IndexLink to="/" activeClassName="active">Test</IndexLink></li>
+							<li className="menu-text">CRUX TODO</li>
+							<li><IndexLink to="/" activeClassName="active">Todo App</IndexLink></li>
 							
 							
 			
