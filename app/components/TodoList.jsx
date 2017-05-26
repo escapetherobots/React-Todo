@@ -10,7 +10,7 @@ var TodoList = React.createClass({
 		var renderTodos = () => {
 			return todosList.map( (todo) => {
 				return (
-					<Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
+					<Todo key={todo.id} {...todo} onToggle={this.props.onToggle} onClickClear={this.props.onClickClear}/>
 				);
 			});
 		};
@@ -18,7 +18,7 @@ var TodoList = React.createClass({
 		return (
 			<div>
 				<h1>Todo List</h1>
-				<ul>
+				<ul className="todo-list">
 					{renderTodos()}
 				</ul>
 			</div>

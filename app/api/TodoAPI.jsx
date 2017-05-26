@@ -29,8 +29,19 @@ module.exports = {
 
 	},
 
-	removeTodos: function(id){
-		//localStorage.removeItem(key);
+	removeTodo: function(id){
+		var lookup  = this.getTodos();
+		var result = lookup.filter( (item) => {
+
+			if(item.id === id) {
+				return item;
+			} else {
+				return false;
+			}
+		});
+
+		console.log(result);
+
 	},
 
 	filterTodos: function(todos, showCompleted, searchText){

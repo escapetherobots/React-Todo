@@ -18,6 +18,14 @@
 
 }
 
+.todo-list {
+	list-style: none;
+
+	.todo-item {
+		margin-right: 20px;
+	}
+}
+
 p {
 	color: $darkgrey;
 }

@@ -10,6 +10,7 @@ var TodoAPI = require('TodoAPI');
 
 //node-module-----------------------
 var uuid = require('uuid');
+var moment = require('moment');
 
 
 
@@ -82,7 +83,19 @@ var TodoApp = React.createClass({
 
 		this.setState({
 			todos: updatedTodos
-		})
+		});
+	},
+
+	handleClearTodo(id){
+		// filter out the object based on it's id
+		var filteredTodos = this.state.todos.filter( (item) => {
+			return item.id !== id;
+		});
+
+		this.setState({
+			todos: filteredTodos
+		});
+		
 	},
 
 	componentDidUpdate(prevProps, prevState) {
@@ -97,7 +110,7 @@ var TodoApp = React.createClass({
 			<div>
 				<h1>Todo App</h1>
 				<TodoSearch onSearch={this.handleSearch} />
-				<TodoList todosList={filteredTodos} onToggle={this.handleCheckedToggle}/>
+				<TodoList todosList={filteredTodos} onToggle={this.handleCheckedToggle} onClickClear={this.handleClearTodo}/>
 				<TodoAdd onAddTodo={this.handleAddTodo}/>
 			</div>
 		);
