@@ -23,7 +23,12 @@ describe('TodoApp Component', () => {
 	});
 
 	it('should toggle completed value when handleToggle called', () => {
-		var todoData = {id: 11, text: 'test features', completed: false};
+		var todoData = {
+			id: 11, 
+			text: 'test features', 
+			completed: false
+		};
+		
 		var todoApp = TestUtils.renderIntoDocument(<TodoApp />);
 
 		todoApp.setState({todos: [todoData]});
