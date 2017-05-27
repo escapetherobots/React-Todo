@@ -1,5 +1,9 @@
 var React = require('react');
 
+//node-module-----------------------
+var uuid = require('uuid');
+var moment = require('moment');
+
 //Components-----------------------
 var TodoList = require('TodoList');
 var TodoAdd = require('TodoAdd');
@@ -8,9 +12,7 @@ var TodoSearch = require('TodoSearch');
 //API-----------------------
 var TodoAPI = require('TodoAPI');
 
-//node-module-----------------------
-var uuid = require('uuid');
-var moment = require('moment');
+
 
 
 
@@ -20,7 +22,7 @@ var TodoApp = React.createClass({
 		return {
 			showCompleted: false,
 			searchText: '',
-			todos: TodoAPI.getTodos()
+			todos: TodoAPI.getTodos() 
 		}
 		//Dummy Data ==============================
 		// return {
@@ -57,7 +59,9 @@ var TodoApp = React.createClass({
 				{
 					id: uuid(),
 					text: todo,
-					completed: false
+					completed: false,
+					createdAt: moment().unix(),
+					completedAt: undefined
 				}
 			]
 		})
@@ -72,8 +76,11 @@ var TodoApp = React.createClass({
 
 	handleCheckedToggle(id){
 		var updatedTodos = this.state.todos.map( (todo) => {
+			//condition for item with matching id argument
 			if (todo.id === id) {
+				//change completed prop bool
 				todo.completed = !todo.completed;
+				todo.completedAt = todo.completed ? moment().unix() : undefined;
 			}
 
 			return todo;
