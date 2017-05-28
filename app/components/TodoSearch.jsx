@@ -12,17 +12,23 @@ var TodoSearch = React.createClass({
 
 
 	render: function(){
+		var renderCheckBox = () => {
+			return (
+				<label>
+						<input type="checkbox" ref="showCompleted" onChange={this.handleSearch} />
+						Show completed todos
+					</label>
+			);
+		}
+
 
 		return (
-			<div>
+			<div className="container__header">
 				<div >
 					<input type="search" ref="searchField" onChange={this.handleSearch} placeholder="Search for todo"></input>
 				</div>
 				<div>
-					<label>
-						<input type="checkbox" ref="showCompleted" onChange={this.handleSearch} />
-						Show completed todos
-					</label>
+					{renderCheckBox()}
 				</div>
 			</div>
 		);
@@ -31,3 +37,12 @@ var TodoSearch = React.createClass({
 });
 
 module.exports = TodoSearch;
+
+// if (todos.length > 1) {
+// 			return (
+// 				<label>
+// 					<input type="checkbox" ref="showCompleted" onChange={this.handleSearch} />
+// 					Show completed todos
+// 				</label>
+// 			);
+// 		};

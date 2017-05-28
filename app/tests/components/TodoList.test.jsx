@@ -13,22 +13,30 @@ describe('TodoList Component', () => {
 		expect(TodoList).toExist();
 	});
 
-	// Rendering components with SCRY is currently not working
-	// it('should render one component for each todo item', () => {
-	// 	var todos = [
-	// 		{
-	// 			id: 1,
-	// 			text: 'do something'
-	// 		},
-	// 		{
-	// 			id: 2,
-	// 			text: 'do something else'
-	// 		}
-	// 	];
+	//Rendering components with SCRY is currently not working
+	it('should render one component for each todo item', () => {
+		var todos = [
+			{
+				id: 1,
+				text: 'do something'
+			},
+			{
+				id: 2,
+				text: 'do something else'
+			}
+		];
 
-	// 	var todoList = TestUtils.renderIntoDocument(<TodoList todos={todos} />);
-	// 	var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo)
+		var todoList = TestUtils.renderIntoDocument(<TodoList todosList={todos} />);
+		var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo)
 
-	// 	expect(todosComponents.length).toBe(todos.length);
-	// });
+		expect(todosComponents.length).toBe(todos.length);
+	});
+
+	it('should render empty message if no todos', () => {
+		var todos = [];
+		var todoList = TestUtils.renderIntoDocument(<TodoList todosList={todos} />);
+		var $el = $(ReactDOM.findDOMNode(todoList));
+
+		expect($el.find('.container__message').length).toBe(1);
+	});
 });
