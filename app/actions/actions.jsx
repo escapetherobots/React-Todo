@@ -33,3 +33,10 @@ export var toggleTodo = (id) => {
 		id
 	};
 };
+
+export var clearTodo = (id) => {
+	return {
+		type: 'CLEAR_TODO',
+		id
+	};
+};

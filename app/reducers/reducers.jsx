@@ -52,7 +52,16 @@ export var todosReducer = (state = [], action) => {
 						completedAt: isCompleted ? moment().unix() : undefined
 					};
 					
-				};
+				}
+			});
+
+		case 'CLEAR_TODO':
+			return state.filter( (item) => {
+				if(item.id !== action.id) {
+					return {
+						...item
+					};
+				}
 			});
 
 		default:
