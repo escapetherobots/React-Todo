@@ -4,6 +4,9 @@ var moment = require('moment');
 //======================================
 //  reducer
 
+
+
+//===============================================
 export var searchTextReducer = (state = '', action) => {
 	switch(action.type) {
 		case 'SET_SEARCH_TEXT':
@@ -16,6 +19,8 @@ export var searchTextReducer = (state = '', action) => {
 
 };
 
+
+//===============================================
 export var showCompletedReducer = (state = false, action) => {
 	switch(action.type) {
 		case 'TOGGLE_SHOW_COMPLETED':
@@ -26,8 +31,16 @@ export var showCompletedReducer = (state = false, action) => {
 	};
 };
 
+
+//===============================================
 export var todosReducer = (state = [], action) => {
 	switch(action.type) {
+		case 'ADD_TODOS':
+			return [
+				...state,
+				...action.todos
+			];
+
 		case 'ADD_TODO':
 			return [
 				...state,

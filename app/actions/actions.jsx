@@ -1,7 +1,7 @@
 //var redux = require('redux');
 //================================
 
-
+//===============================================
 export var setSearchText = (searchText) => {
 	return {
 		type: 'SET_SEARCH_TEXT',
@@ -9,7 +9,7 @@ export var setSearchText = (searchText) => {
 	};
 };
 
-
+//===============================================
 export var addTodo = (text) => {
 	return {
 		type: 'ADD_TODO',
@@ -17,7 +17,16 @@ export var addTodo = (text) => {
 	};	
 };
 
+//===============================================
+//Add Array of Todos
+export var addTodos = (todos) => {
+	return {
+		type: 'ADD_TODOS',
+		todos
+	}
+}
 
+//===============================================
 export var toggleShowCompleted = () => {
 	return {
 		type: 'TOGGLE_SHOW_COMPLETED',
@@ -25,7 +34,7 @@ export var toggleShowCompleted = () => {
 
 };
 
-
+//===============================================
 export var toggleTodo = (id) => {
 	return {
 		type: 'TOGGLE_TODO',
@@ -33,6 +42,7 @@ export var toggleTodo = (id) => {
 	};
 };
 
+//===============================================
 export var clearTodo = (id) => {
 	return {
 		type: 'CLEAR_TODO',

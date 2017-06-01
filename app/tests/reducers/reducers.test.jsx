@@ -49,6 +49,43 @@ describe('Reducers', () => {
 		});
 
 
+		it('should add array of todos', () => {
+			var todos = [
+				{
+					id: 123,
+					text: 'get cat',
+					completed: false,
+					completedAt: undefined,
+					createdAt: 33000
+				},
+				{
+					id: 345,
+					text: 'get dog',
+					completed: false,
+					completedAt: undefined,
+					createdAt: 35000
+				}
+			];
+			var action = {
+				type: 'ADD_TODOS',
+				todos: todos
+			};
+			var currentState = [
+				{
+					id: 987,
+					text: 'get food',
+					completed: false,
+					completedAt: undefined,
+					createdAt: 35000
+				}
+			];
+			var res = reducers.todosReducer(df(currentState), df(action));
+			expect(res.length).toEqual(3);
+			expect(res[1].text).toEqual(todos[0].text);
+
+		});
+
+
 		it('should toggle a todo as completed', () => {
 			var todos = [
 				{

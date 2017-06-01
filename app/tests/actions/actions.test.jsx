@@ -14,7 +14,7 @@ describe('Actions', () => {
 	});
 
 
-	it('should generate text for todo', () => {
+	it('should generate add todo action with text arg', () => {
 		var action = {
 			type: 'ADD_TODO',
 			text: 'feed cat'
@@ -22,6 +22,33 @@ describe('Actions', () => {
 
 		var res = actions.addTodo(action.text);
 
+		expect(res).toEqual(action);
+	});
+
+
+	it('should generate add todos action with array arg', () => {
+		var todos = [
+			{
+				id: 123,
+				text: 'get cat',
+				completed: false,
+				completedAt: undefined,
+				createdAt: 33000
+			},
+			{
+				id: 345,
+				text: 'get dog',
+				completed: false,
+				completedAt: undefined,
+				createdAt: 35000
+			}
+		];
+		var action = {
+			type: 'ADD_TODOS',
+			todos: todos
+		};
+
+		var res = actions.addTodos(action.todos);
 		expect(res).toEqual(action);
 	});
 
