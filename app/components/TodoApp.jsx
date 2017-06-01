@@ -8,7 +8,7 @@ var moment = require('moment');
 // !!!use import to get defaults attached to the Redux store
 import TodoList from 'TodoList';
 import TodoAdd from 'TodoAdd';
-var TodoSearch = require('TodoSearch');
+import TodoSearch from 'TodoSearch';
 
 //API-----------------------
 var TodoAPI = require('TodoAPI');

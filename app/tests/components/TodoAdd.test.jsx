@@ -7,6 +7,7 @@ var TestUtils = require('react-addons-test-utils');
 // this is the default if you use require
 //var TodoAdd = require('TodoAdd');
 // this one is not "connected" to the store
+//import { TodoAdd } from 'TodoAdd';
 var { TodoAdd } = require('TodoAdd');
 
 describe('Add Todo Component', () => {
