@@ -34,16 +34,18 @@ describe('TodoList Component', () => {
 			}
 		];
 
+		// create the store from the configureStore file, passing in this initial state as arg
 		var store = configure({
-			todos: todos
+			todos
 		});
-		var Provider = TestUtils.renderIntoDocument(
+
+		var provider = TestUtils.renderIntoDocument(
 			<Provider store={store}>
 				<ConnectedTodoList />
 			</Provider>
 		);
 		var todoList = TestUtils.scryRenderedComponentsWithType(provider, ConnectedTodoList)[0];
-		var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, ConnectedTodoList)
+		var todosComponents = TestUtils.scryRenderedComponentsWithType(todoList, ConnectedTodo);
 
 		expect(todosComponents.length).toBe(todos.length);
 	});

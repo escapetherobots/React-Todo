@@ -52,6 +52,9 @@ export var todosReducer = (state = [], action) => {
 						completedAt: isCompleted ? moment().unix() : undefined
 					};
 					
+				} else {
+					// if it doesn't match, just return the item obj unmodified!
+					return item;
 				}
 			});
 

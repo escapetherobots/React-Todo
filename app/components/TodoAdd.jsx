@@ -1,13 +1,19 @@
 var React = require('react');
+var { connect } = require('react-redux');
+var actions = require('actions');
 
-var TodoAdd = React.createClass({
+export var TodoAdd = React.createClass({
 
 	handleSubmit(e){
 		e.preventDefault();
 		var item = this.refs.addField.value;
+		var { dispatch } = this.props;
+		
 
 		if(item.length > 0) {
-			this.props.onAddTodo(item);
+			// this.props.onAddTodo(item);
+			// gets replaced with dispatch action
+			dispatch(actions.addTodo(item));
 
 			this.refs.addField.value = '';
 		} else {
@@ -33,4 +39,7 @@ var TodoAdd = React.createClass({
 
 });
 
-module.exports = TodoAdd;
+// This component doesn't need any props from the state, just run this
+// by running TodoApp through connect it adds the dispatch method 
+// to this component as a prop!!!
+export default connect()(TodoAdd);

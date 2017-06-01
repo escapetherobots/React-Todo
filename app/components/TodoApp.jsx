@@ -5,8 +5,9 @@ var uuid = require('uuid');
 var moment = require('moment');
 
 //Components-----------------------
+// !!!use import to get defaults attached to the Redux store
 import TodoList from 'TodoList';
-var TodoAdd = require('TodoAdd');
+import TodoAdd from 'TodoAdd';
 var TodoSearch = require('TodoSearch');
 
 //API-----------------------

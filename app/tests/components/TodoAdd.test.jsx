@@ -4,31 +4,37 @@ var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
-// load the component that you want to test:
-var TodoAdd = require('TodoAdd');
+// this is the default if you use require
+//var TodoAdd = require('TodoAdd');
+// this one is not "connected" to the store
+var { TodoAdd } = require('TodoAdd');
 
 describe('Add Todo Component', () => {
 	it('should exist', () => {
 		expect(TodoAdd).toExist();
 	});
 
-	it('should call onAddTodo prop with valid data', () => {
+	it('should dispatch ADD_TODO when valid todo text', () => {
 		var textTest = 'Go to store';
+		var action = {
+			type: "ADD_TODO",
+			text: textTest
+		};
 		var spy = expect.createSpy();
-		var addTodo = TestUtils.renderIntoDocument(<TodoAdd onAddTodo={spy} />);
+		var addTodo = TestUtils.renderIntoDocument(<TodoAdd dispatch={spy} />);
 		var $el = $(ReactDOM.findDOMNode(addTodo));
 
 		addTodo.refs.addField.value = textTest;
 		TestUtils.Simulate.submit( $el.find('form')[0] );
 
-		expect(spy).toHaveBeenCalledWith(textTest);
+		expect(spy).toHaveBeenCalledWith(action);
 
 	});
 
-	it('should NOT call onAddTodo prop with invalid data', () => {
+	it('should not dispatch ADD_TODO when invalid todo text', () => {
 		var textTest = '';
 		var spy = expect.createSpy();
-		var addTodo = TestUtils.renderIntoDocument(<TodoAdd onAddTodo={spy} />);
+		var addTodo = TestUtils.renderIntoDocument(<TodoAdd dispatch={spy} />);
 		var $el = $(ReactDOM.findDOMNode(addTodo));
 
 		addTodo.refs.addField.value = textTest;
