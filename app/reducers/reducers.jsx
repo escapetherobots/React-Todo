@@ -1,6 +1,4 @@
-//var redux = require('redux');
-
-//node-module-----------------------
+//node-modules-----------------------
 var uuid = require('uuid');
 var moment = require('moment');
 //======================================
