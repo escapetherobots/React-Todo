@@ -38,14 +38,19 @@ describe('Reducers', () => {
 		it('should add new todo', () => {
 			var action = {
 				type: 'ADD_TODO',
-				text: 'walk the dog'
+				todo: {
+					id: '123abc',
+					text: 'walk the dog',
+					completed: false,
+					createdAt: 3000
+				}
 			};
 
 			var res = reducers.todosReducer(df([]), df(action));
 			//the state is only going to have 1 item, so the length will be 1
 			expect(res.length).toEqual(1);
 
-			expect(res[0].text).toEqual(action.text);
+			expect(res[0]).toEqual(action.todo);
 		});
 
 

@@ -1,5 +1,8 @@
-var redux = require('redux');
-var {searchTextReducer, showCompletedReducer, todosReducer} = require('reducers');
+import * as redux from 'redux';
+import thunk from 'redux-thunk';
+// all action generators return objects, with thunk, the generators will return functions
+
+import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers';
 
 export var configure = (initialState = {}) => {
 	
@@ -10,7 +13,7 @@ export var configure = (initialState = {}) => {
 	});
 
 	var reduxComposition = redux.compose(
-		//redux.applyMiddleware(thunk),
+		redux.applyMiddleware(thunk),
 		window.__REDUX_DEVTOOLS_EXTENSION__  ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 	);
 

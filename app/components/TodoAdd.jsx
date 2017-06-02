@@ -6,14 +6,14 @@ export var TodoAdd = React.createClass({
 
 	handleSubmit(e){
 		e.preventDefault();
-		var item = this.refs.addField.value;
+		var text = this.refs.addField.value;
 		var { dispatch } = this.props;
 		
 
-		if(item.length > 0) {
+		if(text.length > 0) {
 			// this.props.onAddTodo(item);
 			// gets replaced with dispatch action
-			dispatch(actions.addTodo(item));
+			dispatch(actions.startAddTodo(text));
 
 			this.refs.addField.value = '';
 		} else {

@@ -4,6 +4,8 @@ var expect = require('expect');
 var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
+// import * as = get all props and actions and places them in an object
+import * as actions from 'actions';
 // this is the default if you use require
 //var TodoAdd = require('TodoAdd');
 // this one is not "connected" to the store
@@ -17,10 +19,8 @@ describe('Add Todo Component', () => {
 
 	it('should dispatch ADD_TODO when valid todo text', () => {
 		var textTest = 'Go to store';
-		var action = {
-			type: "ADD_TODO",
-			text: textTest
-		};
+		//use imported action to call startAddTodo()
+		var action = actions.startAddTodo(textTest);
 		var spy = expect.createSpy();
 		var addTodo = TestUtils.renderIntoDocument(<TodoAdd dispatch={spy} />);
 		var $el = $(ReactDOM.findDOMNode(addTodo));
