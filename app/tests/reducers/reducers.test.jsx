@@ -91,7 +91,7 @@ describe('Reducers', () => {
 		});
 
 
-		it('should toggle a todo as completed', () => {
+		it('should update/toggle a todo as completed', () => {
 			var todos = [
 				{
 					id: 123,
@@ -102,19 +102,24 @@ describe('Reducers', () => {
 				}
 			];
 
+			var updates = {
+				completed: false,
+				completedAt: null
+			};
+
 			var action = {
-				type: 'TOGGLE_TODO',
-				id: 123
-				
+				type: 'UPDATE_TODO',
+				id: todos[0].id,
+				updates
 			};
 
 			var res = reducers.todosReducer(df(todos), df(action));
 			//the state is only going to have 1 item, so the length will be 1
 			expect(res.length).toEqual(1);
 
-			expect(res[0].completed).toEqual(false);
-
-			expect(res[0].completedAt).toEqual(undefined);
+			expect(res[0].completed).toEqual(updates.completed);
+			expect(res[0].completedAt).toEqual(updates.completedAt);
+			expect(res[0].text).toEqual(todos[0].text);
 		});
 	});
 

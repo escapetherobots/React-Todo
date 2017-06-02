@@ -47,17 +47,13 @@ export var todosReducer = (state = [], action) => {
 				action.todo
 			];
 
-		case 'TOGGLE_TODO':
+		case 'UPDATE_TODO':
 			return state.map( (item) => {
 				if(item.id === action.id) {
-					var isCompleted = !item.completed;
-
 					return {
 						...item,
-						completed: isCompleted,
-						completedAt: isCompleted ? moment().unix() : undefined
+						...action.updates
 					};
-					
 				} else {
 					// if it doesn't match, just return the item obj unmodified!
 					return item;

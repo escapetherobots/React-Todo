@@ -11,6 +11,7 @@ export var setSearchText = (searchText) => {
 };
 
 //===============================================
+//===============================================
 // Add todo
 export var addTodo = (todo) => {
 	return {
@@ -66,13 +67,37 @@ export var toggleShowCompleted = () => {
 };
 
 //===============================================
-export var toggleTodo = (id) => {
+//===============================================
+export var updateTodo = (id, updates) => {
 	return {
-		type: 'TOGGLE_TODO',
-		id
+		type: 'UPDATE_TODO',
+		id,
+		updates
 	};
 };
 
+//===============================================
+//Start toggleTODO - firebase
+// THUNK lets us return functions
+
+export var startToggleTodo = (id, completed) => {
+	return (dispatch, getState) => {
+		//args are functions
+		var todoRef = firebaseRef.child(`todos/${id}`);
+		var updates = {
+			completed,
+			completedAt: completed ? moment().unix() : null
+		};
+
+		return todoRef.update(updates).then( () => {
+			dispatch(updateTodo(id, updates));
+		});
+		
+	};
+};
+
+
+//===============================================
 //===============================================
 export var clearTodo = (id) => {
 	return {
