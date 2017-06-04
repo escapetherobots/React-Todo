@@ -2,6 +2,8 @@ var webpack = require('webpack');
 //this is the node path module - built into node
 var path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 module.exports = {
 	entry: [
 		'script!jquery/dist/jquery.min.js',
@@ -15,6 +17,11 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			'$': 'jquery',
 			'jQuery': 'jquery'
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				warnings: false
+			}
 		})
 	],
 	output: {
@@ -56,5 +63,5 @@ module.exports = {
 			path.resolve(__dirname, './node_modules/foundation-sites/scss')
 		]
 	},
-	devtool: 'cheap-eval-source-map'
+	devtool: process.env.NODE_ENV === 'production' ? undefined : 'cheap-eval-source-map'
 }
