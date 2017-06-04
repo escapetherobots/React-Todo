@@ -1,6 +1,8 @@
 var React = require('react');
 var React = require('react');
 var moment = require('moment');
+
+// connect to redux actions
 var { connect } = require('react-redux');
 var actions = require('actions');
 
@@ -40,7 +42,7 @@ export var Todo = React.createClass({
 
 				</div>
 				<div className="todo__clear-item" onClick={ () => {
-					dispatch(actions.clearTodo(id));
+					dispatch(actions.startClearTodo(id));
 					//this.props.onClickClear(id);
 				}} >
 					<button className="button tiny hollow" >Clear</button>
@@ -52,4 +54,5 @@ export var Todo = React.createClass({
 
 });
 
+// connect to redux to dispatch actions to reducer
 export default connect()(Todo);

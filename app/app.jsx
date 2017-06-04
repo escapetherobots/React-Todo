@@ -23,22 +23,9 @@ var TodoAPI = require('TodoAPI');
 //import './../playground/firebase/index';
 
 
-//============================================
-//subscribe to the react state - listen for when it updates
-store.subscribe( () => {
-	var state = store.getState();
-	console.log(state);
-	TodoAPI.setTodos(state.todos);
-});
+store.dispatch(actions.startAddTodos());
 
-// set initial store based on array of todos from localStorage!
-var initialTodos = TodoAPI.getTodos();
-store.dispatch(actions.addTodos(initialTodos));
 
-//EXAMPLE DISPATCH ACTIONS
-//store.dispatch(actions.addTodo('Clean the yard'));
-//store.dispatch(actions.setSearchText('yard'));
-//store.dispatch(actions.toggleShowCompleted());
 
 
 

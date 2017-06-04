@@ -50,14 +50,43 @@ export var startAddTodo = (text) => {
 //===============================================
 //Add Array of Todos
 export var addTodos = (todos) => {
+	// this is an array of objects
 	return {
 		type: 'ADD_TODOS',
 		todos
 	}
-}
+};
 
 
+// Pre-action ADDTODOS
+export var startAddTodos = () => {
+	return (dispatch, getState) => {
+		var todosRef = firebaseRef.child('todos');
 
+		return todosRef.once('value').then( (snapshot) => {
+				// console.log('add from firebase snapshot: ', snapshot.val(), snapshot.key);
+				var todosObj = {
+					...snapshot.val()
+				}
+
+				var todosKeyArr = Object.keys(todosObj);
+				
+				var todosArr = todosKeyArr.map( (key) => {
+					return {
+						...todosObj[key],
+						id: key
+					};
+				})
+				
+				dispatch(addTodos(todosArr));
+			}
+		);
+	};
+
+};
+
+
+//===============================================
 //===============================================
 export var toggleShowCompleted = () => {
 	return {
@@ -76,7 +105,7 @@ export var updateTodo = (id, updates) => {
 	};
 };
 
-//===============================================
+
 //Start toggleTODO - firebase
 // THUNK lets us return functions
 
@@ -100,8 +129,23 @@ export var startToggleTodo = (id, completed) => {
 //===============================================
 //===============================================
 export var clearTodo = (id) => {
+	console.log('running clear todo with: ', id);
 	return {
 		type: 'CLEAR_TODO',
 		id
 	};
 };
+
+
+// THUNK lets actions return functions
+export var startClearTodo = (id) => {
+	console.log('starting clear');
+	return (dispatch, getState) => {
+		var todoRef = firebaseRef.child(`todos/${id}`);
+
+		return todoRef.remove().then( () => {
+			dispatch(clearTodo(id));
+		});
+	};
+};
+

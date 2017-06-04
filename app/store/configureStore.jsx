@@ -1,6 +1,6 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
-// all action generators return objects, with thunk, the generators will return functions
+// all action generators return objects, with thunk, the action generators will return functions
 
 import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers';
 

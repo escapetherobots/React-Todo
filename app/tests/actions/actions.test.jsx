@@ -114,20 +114,50 @@ describe('Actions', () => {
 
 	describe('Tests with firebase todos', () => {
 		var testTodoRef;
+
 		// add item to firebase for testing
 		beforeEach( (done) => {
-			testTodoRef = firebaseRef.child('todos').push();
+			var todosRef = firebaseRef.child('todos');
 
-			testTodoRef.set({
-				completed: false,
-				createdAt: 654654321
-			}).then( () => done() );
+			// clear all previous todos before the test is run
+			todosRef.remove().then( () => {
+				testTodoRef = firebaseRef.child('todos').push();
+
+				return testTodoRef.set({
+					text: 'ztest 3000',
+					completed: false,
+					createdAt: 654654321
+				})
+			})
+			.then( () => done() )
+			.catch(done);
 		});
 
 		// once tested, remove item from firebase
 		afterEach( (done) => {
 			testTodoRef.remove().then( () => done() );
 		});
+
+		//run the start todos test
+		it('should populate todos and dispatch ADD_TODOS', (done) => {
+			const store = createMockStore({});
+			const action = actions.startAddTodos();
+
+			store.dispatch(action).then( () => {
+				// getActions returns array of all actions that have been dispatched!!!
+				const mockActions = store.getActions();
+				expect(mockActions[0]).toInclude({
+					type: "ADD_TODOS"
+				});
+
+				expect(mockActions[0].todos.length).toEqual(1);
+				expect(mockActions[0].todos[0].text).toEqual('ztest 3000');
+
+				done();
+
+			}, done);
+		});
+
 
 		// run the actual test!
 		it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
