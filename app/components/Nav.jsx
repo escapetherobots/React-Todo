@@ -12,15 +12,13 @@ var Nav = React.createClass({
 					<div className="top-bar-left">
 						<ul className="menu" data-hide-for="medium">
 							<li className="menu-text">CRUX TODO</li>
-							<li><IndexLink to="/" activeClassName="active">Todo App</IndexLink></li>
-							
-							
-			
-							
+							<li><IndexLink to="/" activeClassName="active">Login</IndexLink></li>
+							<li><Link to="/extra" activeClassName="active">Extra</Link></li>
+							<li><Link to="/todo" activeClassName="active">Todo App</Link></li>
 						</ul>
 					</div>
 					<div className="top-bar-right">
-						
+						<ul className="menu" data-hide-for="medium"><li><a href="#">Logout</a></li></ul>
 					</div>
 				</nav>
 			</div>

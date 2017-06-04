@@ -11,9 +11,12 @@ var { Route, Router, IndexRoute, hashHistory } = require('react-router');
 
 //============================================
 // components
-var Main = require('Main');
-var TodoApp = require('TodoApp');
-
+//var Main = require('Main');
+//var TodoApp = require('TodoApp');
+import Main from 'Main';
+import TodoApp from 'TodoApp';
+import Extra from 'Extra';
+import Login from 'login';
 //============================================
 // redux store and actions
 var actions = require('actions');
@@ -41,9 +44,18 @@ require('style!css!sass!AppStyles');
 
 //============================================
 // Render
+//hash history is all stored on the client, not the server
 ReactDOM.render( 
 	<Provider store={store}>
-		<TodoApp />
+		
+		<Router history={hashHistory}>
+			<Route path="/" component={Main}>
+				<IndexRoute component={Login}/>
+				<Route path="todo" component={TodoApp} />
+				<Route path="extra" component={Extra} />
+				<Route path="login" component={Login} />
+			</Route>
+		</Router>
 	</Provider >,
 	document.getElementById('app')
 );
