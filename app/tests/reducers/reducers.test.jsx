@@ -91,6 +91,33 @@ describe('Reducers', () => {
 		});
 
 
+		it('should remove todos on logout', () => {
+			var todos = [
+				{
+					id: 123,
+					text: 'get cat',
+					completed: false,
+					completedAt: undefined,
+					createdAt: 33000
+				},
+				{
+					id: 345,
+					text: 'get dog',
+					completed: false,
+					completedAt: undefined,
+					createdAt: 35000
+				}
+			];
+			var action = {
+				type: 'LOGOUT_REMOVE_TODOS'
+			};
+
+			var res = reducers.todosReducer(df(todos), df(action));
+			expect(res.length).toEqual(0);
+
+		});
+
+
 		it('should update/toggle a todo as completed', () => {
 			var todos = [
 				{
