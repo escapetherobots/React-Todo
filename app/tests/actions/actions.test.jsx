@@ -38,24 +38,7 @@ describe('Actions', () => {
 		expect(res).toEqual(action);
 	});
 
-	// TODO ACTION ASYNC FIREBASE TEST WITH MOCK!
-	// pass done, which indicates that it is assync test
-	it('should create todo and dispatch ADD_TODO', (done) => {
-		const store = createMockStore({});
-		const todoText = 'My todo item';
-
-		store.dispatch(actions.startAddTodo(todoText)).then( () => {
-			const actions = store.getActions();
-			expect(actions[0]).toInclude({
-				type: 'ADD_TODO'
-			});
-			expect(actions[0].todo).toInclude({
-				text: todoText
-			});
-			done();
-		}).catch(done);
-
-	});
+	
 	
 
 
@@ -134,35 +117,53 @@ describe('Actions', () => {
 	})
 
 
+
+	//================================================
+	// TODO ACTION TEST
+
 	describe('Tests with firebase todos', () => {
 		var testTodoRef;
+		var uid;
+		var todosRef;
 
+		//------------------
 		// add item to firebase for testing
 		beforeEach( (done) => {
-			var todosRef = firebaseRef.child('todos');
+			
+			//add auth
+			firebase.auth().signInAnonymously().then( (user) => {
+				uid = user.uid;
+				todosRef = firebaseRef.child(`users/${uid}/todos`);
 
-			// clear all previous todos before the test is run
-			todosRef.remove().then( () => {
-				testTodoRef = firebaseRef.child('todos').push();
+				return todosRef.remove();
+			}).then( () => {
+				testTodoRef = todosRef.push();
 
 				return testTodoRef.set({
 					text: 'ztest 3000',
 					completed: false,
 					createdAt: 654654321
-				})
+				});
 			})
 			.then( () => done() )
 			.catch(done);
 		});
 
+		//------------------
 		// once tested, remove item from firebase
 		afterEach( (done) => {
-			testTodoRef.remove().then( () => done() );
+			todosRef.remove().then( () => done() );
 		});
 
 		//run the start todos test
 		it('should populate todos and dispatch ADD_TODOS', (done) => {
-			const store = createMockStore({});
+			const store = createMockStore(
+				{
+					auth: {
+						uid: uid
+					}
+				}
+			);
 			const action = actions.startAddTodos();
 
 			store.dispatch(action).then( () => {
@@ -183,7 +184,13 @@ describe('Actions', () => {
 
 		// run the actual test!
 		it('should toggle todo and dispatch UPDATE_TODO action', (done) => {
-			const store = createMockStore({});
+			const store = createMockStore(
+				{
+					auth: {
+						uid
+					}
+				}
+			);
 			const action = actions.startToggleTodo(testTodoRef.key, true);
 
 			store.dispatch(action).then( ()=> {
@@ -202,6 +209,32 @@ describe('Actions', () => {
 				done();
 
 			}, done);
+		});
+
+
+		// TODO ACTION ASYNC FIREBASE TEST WITH MOCK!
+		// pass done, which indicates that it is assync test
+		it('should create todo and dispatch ADD_TODO', (done) => {
+			const store = createMockStore(
+				{
+					auth: {
+						uid
+					}
+				}
+			);
+			const todoText = 'My todo item';
+
+			store.dispatch(actions.startAddTodo(todoText)).then( () => {
+				const actions = store.getActions();
+				expect(actions[0]).toInclude({
+					type: 'ADD_TODO'
+				});
+				expect(actions[0].todo).toInclude({
+					text: todoText
+				});
+				done();
+			}).catch(done);
+
 		});
 	});
 });
