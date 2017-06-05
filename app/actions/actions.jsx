@@ -24,6 +24,8 @@ export var addTodo = (todo) => {
 //Start AddTodo - Firebase
 export var startAddTodo = (text) => {
 	return (dispatch, getState) => {
+
+		var uid = getState().auth.uid;
 		// define the todo object defaults
 		var todo = {
 			text,
@@ -32,7 +34,7 @@ export var startAddTodo = (text) => {
 			completedAt: null
 		};
 		// set reference for firebase item
-		var todoRef = firebaseRef.child('todos').push(todo);
+		var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
 		//return firebase promise and call the dispatch on updated object with returned id
 		return todoRef.then( (snapshot) => {
@@ -61,7 +63,8 @@ export var addTodos = (todos) => {
 // Pre-action ADDTODOS
 export var startAddTodos = () => {
 	return (dispatch, getState) => {
-		var todosRef = firebaseRef.child('todos');
+		var uid = getState().auth.uid;
+		var todosRef = firebaseRef.child(`users/${uid}/todos`);
 
 		return todosRef.once('value').then( (snapshot) => {
 				// console.log('add from firebase snapshot: ', snapshot.val(), snapshot.key);
@@ -111,8 +114,9 @@ export var updateTodo = (id, updates) => {
 
 export var startToggleTodo = (id, completed) => {
 	return (dispatch, getState) => {
+		var uid = getState().auth.uid;
 		//args are functions
-		var todoRef = firebaseRef.child(`todos/${id}`);
+		var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
 		var updates = {
 			completed,
 			completedAt: completed ? moment().unix() : null
@@ -141,7 +145,8 @@ export var clearTodo = (id) => {
 export var startClearTodo = (id) => {
 	console.log('starting clear');
 	return (dispatch, getState) => {
-		var todoRef = firebaseRef.child(`todos/${id}`);
+		var uid = getState().auth.uid;
+		var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`);
 
 		return todoRef.remove().then( () => {
 			dispatch(clearTodo(id));

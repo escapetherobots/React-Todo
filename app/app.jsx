@@ -26,17 +26,20 @@ import appRouter from 'app/router/';
 //AUTHORIZATION
 firebase.auth().onAuthStateChanged( (user) => {
 	if(user) {
-		//dispatch
+		//dispatch login action
 		store.dispatch(actions.login(user.uid));
+		// get initial todos from firebase using action generators based on uid - redux
+		store.dispatch(actions.startAddTodos());
+		//then push router to:
 		hashHistory.push('/todos');
+		
 	} else {
 		store.dispatch(actions.logout());
 		hashHistory.push('/')
 	}
 });
 
-// get initial todos from firebase using action generators - redux
-store.dispatch(actions.startAddTodos());
+
 
 
 
