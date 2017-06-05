@@ -14,7 +14,7 @@ var Nav = React.createClass({
 							<li className="menu-text">CRUX TODO</li>
 							<li><IndexLink to="/" activeClassName="active">Login</IndexLink></li>
 							<li><Link to="/extra" activeClassName="active">Extra</Link></li>
-							<li><Link to="/todo" activeClassName="active">Todo App</Link></li>
+							<li><Link to="/todos" activeClassName="active">Todo App</Link></li>
 						</ul>
 					</div>
 					<div className="top-bar-right">

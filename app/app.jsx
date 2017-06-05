@@ -7,25 +7,29 @@ var { Provider } = require('react-redux');
 
 //============================================
 //destructured router
-var { Route, Router, IndexRoute, hashHistory } = require('react-router');
+var { hashHistory } = require('react-router');
 
 //============================================
-// components
-//var Main = require('Main');
-//var TodoApp = require('TodoApp');
-import Main from 'Main';
-import TodoApp from 'TodoApp';
-import Extra from 'Extra';
-import Login from 'login';
+import firebase from 'app/firebase/';
 //============================================
 // redux store and actions
 var actions = require('actions');
 var store = require('configureStore').configure();
-var TodoAPI = require('TodoAPI');
+
+import appRouter from 'app/router/';
 //============================================
 //import './../playground/firebase/index';
 
+//AUTHORIZATION
+firebase.auth().onAuthStateChanged( (user) => {
+	if(user) {
+		hashHistory.push('/todos');
+	} else {
+		hashHistory.push('/')
+	}
+});
 
+// get initial todos from firebase using action generators - redux
 store.dispatch(actions.startAddTodos());
 
 
@@ -40,22 +44,16 @@ require('style!css!sass!AppStyles');
 
 
 
-
-
 //============================================
 // Render
 //hash history is all stored on the client, not the server
+
+
+
+
 ReactDOM.render( 
 	<Provider store={store}>
-		
-		<Router history={hashHistory}>
-			<Route path="/" component={Main}>
-				<IndexRoute component={Login}/>
-				<Route path="todo" component={TodoApp} />
-				<Route path="extra" component={Extra} />
-				<Route path="login" component={Login} />
-			</Route>
-		</Router>
+		{appRouter}
 	</Provider >,
 	document.getElementById('app')
 );
