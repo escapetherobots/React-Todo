@@ -2,14 +2,17 @@ import * as redux from 'redux';
 import thunk from 'redux-thunk';
 // all action generators return objects, with thunk, the action generators will return functions
 
-import {searchTextReducer, showCompletedReducer, todosReducer} from 'reducers';
+import {searchTextReducer, showCompletedReducer, todosReducer, authReducer, ztestReducer} from 'reducers';
 
 export var configure = (initialState = {}) => {
 	
 	var reducer = redux.combineReducers({
 		searchText: searchTextReducer,
 		showCompleted: showCompletedReducer,
-		todos: todosReducer
+		todos: todosReducer,
+		auth: authReducer,
+		ztest: ztestReducer
+
 	});
 
 	var reduxComposition = redux.compose(

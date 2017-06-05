@@ -38,8 +38,10 @@ export var TodoList = React.createClass({
 
 });
 
+// connect will return state and pass it to your callback as an arg
 export default connect(
 	(state) => {
+		console.log(state);
 		return state;
 		// return {
 		// 	todos: state.todos

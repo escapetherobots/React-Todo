@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 //============================================
-//providers provide store to the children! yay!
+//providers provide store to the children! 
 var { Provider } = require('react-redux');
 
 //============================================
@@ -20,11 +20,17 @@ import appRouter from 'app/router/';
 //============================================
 //import './../playground/firebase/index';
 
+
+//store.dispatch(actions.ztest());
+
 //AUTHORIZATION
 firebase.auth().onAuthStateChanged( (user) => {
 	if(user) {
+		//dispatch
+		store.dispatch(actions.login(user.uid));
 		hashHistory.push('/todos');
 	} else {
+		store.dispatch(actions.logout());
 		hashHistory.push('/')
 	}
 });

@@ -153,6 +153,13 @@ export var startClearTodo = (id) => {
 //===============================================
 //Login and Logout actions
 // get the githubProvider from firebase config
+export var login = (uid) => {
+	return {
+		type: 'LOGIN',
+		uid
+	}
+}
+
 export var startLogin = () => {
 	return (dispatch, getState) => {
 		return firebase.auth().signInWithPopup(githubProvider).then( (result) => {
@@ -164,6 +171,12 @@ export var startLogin = () => {
 };
 
 
+export var logout = () => {
+	return {
+		type: 'LOGOUT',
+	}
+}
+
 export var startLogout = () => {
 	return (dispatch, getState) => {
 		return firebase.auth().signOut().then( () => {
@@ -171,3 +184,14 @@ export var startLogout = () => {
 		});
 	};
 };
+
+
+export var ztest = () => {
+	return {
+		type: 'ZTEST',
+		ztest: 'ztest5000'
+	}
+}
+
+
+
